@@ -1,1 +1,39 @@
-<p>home works!</p>
+<select name="type" id="type" [(ngModel)]="type">
+    <option value="tracks">Tracks</option>
+</select>
+
+<select name="timeRange" id="timeRange" [(ngModel)]="timeRange">
+    <option value="short_term">Short Term</option>
+    <option value="medium_term">Medium Term</option>
+    <option value="long_term">Long Term</option>
+</select>
+
+<input type="text" placeholder="limit" [(ngModel)]="limit">
+<input type="text" placeholder="offset" [(ngModel)]="offset">
+
+<button (click)="getData()">Get</button>
+<button (click)="login()">Login</button>
+<button (click)="handle()" style="margin-bottom: 75px;">Handle</button>
+
+<main>
+    <div class="data-tab">
+        <ul>
+            <li (click)="changeTimeRange(1)" [ngClass]="tab === 1 ? 'selected' : ''">Último mês</li>
+            <li (click)="changeTimeRange(2)" [ngClass]="tab === 2 ? 'selected' : ''">Últimos 6 meses</li>
+            <li (click)="changeTimeRange(3)" [ngClass]="tab === 3 ? 'selected' : ''">Último ano</li>
+        </ul>
+    </div>
+    
+    <section class="data">
+        <div class="data-row" *ngFor="let track of tracks; let i = index">
+            <div class="data-pic">
+                <img [src]="track.album.images[1].url" [alt]="track.name">
+                <p>{{i+1}}</p>
+            </div>
+            <div class="data-title">
+                <p>{{track.name}}</p>
+                <a href="#">Abrir no Spotify</a>
+            </div>
+        </div>
+    </section>
+</main>
