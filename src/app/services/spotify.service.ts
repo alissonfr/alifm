@@ -66,7 +66,7 @@ export class SpotifyService {
     return match ? match[1] : null;
   }
 
-  getData(data: any): Observable<any> {
+  getData(data: any, type: string): Observable<any> {
     const httpOptions: any = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -74,6 +74,6 @@ export class SpotifyService {
       }),
       params: data
     }
-    return this.http.get(this.apiUrl + `me/top/${'tracks'}`, httpOptions)
+    return this.http.get(this.apiUrl + `me/top/${type}`, httpOptions)
   }
 }

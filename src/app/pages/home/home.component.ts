@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
@@ -10,29 +11,34 @@ export class HomeComponent implements OnInit {
   userData: any = []
   type: string = 'tracks'
   timeRange: string = 'long_term'
-  limit: number = 20
+  limit: number = 10
   offset: number = 0
 
   tracks: any = [];
-  loggedIn = false;
+  isLogged = false;
 
   tab: number = 1;
 
   constructor(
-    private spotifyService: SpotifyService
+    private spotifyService: SpotifyService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.getData()
+    this.route.queryParams.subscribe((params: any) => {
+      if(params.code) {
+        this.spotifyService.handleCallback().then(data => {
+          this.getData();
+          this.isLogged = true;
+        });
+      };
+    });
   }
 
   async login() {
     this.spotifyService.login().then(data => {
-      });
-  }
 
-  async handle() {
-    this.spotifyService.handleCallback()
+      });
   }
 
   getData() {
@@ -42,13 +48,18 @@ export class HomeComponent implements OnInit {
       offset: this.offset,
     };
     
-    this.spotifyService.getData(data).subscribe((result: any) => {
-        this.tracks = result.items
-      })
+    this.spotifyService.getData(data, this.type).subscribe((result: any) => {
+        this.tracks = result.items;
+      });
+  }
+
+  changeDataType(type: string) {
+    this.type = type;
+    this.getData();
   }
 
   changeTimeRange(tab: number) {
-    this.tab = tab
+    this.tab = tab;
     switch (tab) {
         case 1:
           this.timeRange = 'short_term'
@@ -62,7 +73,12 @@ export class HomeComponent implements OnInit {
         default:
           this.timeRange = 'short_term'
           break;
-    }
-    this.getData()
+    };
+    this.getData();
+  }
+
+  changeLimit() {
+    this.limit = this.limit + 10;
+    this.getData();
   }
 }
