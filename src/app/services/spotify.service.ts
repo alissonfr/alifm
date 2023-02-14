@@ -9,12 +9,14 @@ import { Router } from '@angular/router';
 })
 export class SpotifyService {
   apiUrl: string;
+  api: string;
 
   constructor(
     private http: HttpClient,
     private router: Router
     ) {
     this.apiUrl = environment.apiSpotify
+    this.api = environment.api
   }
 
   getToken() {
@@ -27,7 +29,7 @@ export class SpotifyService {
 
   async login() {
     const clientId = '0a0be73ac35b43b0ac1eb0688fd80450';
-    const redirectUri = encodeURIComponent(window.location.origin + '/');
+    const redirectUri = encodeURIComponent(this.api);
     const scope = encodeURIComponent('user-top-read');
     const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code`;
   
@@ -37,10 +39,9 @@ export class SpotifyService {
   async handleCallback() {
     const code = this.getCodeFromUrl();
     if (!code) return;
-    console.log('code ', code)
     const clientId = '0a0be73ac35b43b0ac1eb0688fd80450';
     const clientSecret = '640e417de18142f7a8e88a55af5e9a20';
-    const redirectUrl = 'http://localhost:4200/';
+    const redirectUrl = this.api;
     console.log(redirectUrl);
     const response: any = await this.http
       .post('https://accounts.spotify.com/api/token', null, {
@@ -59,6 +60,7 @@ export class SpotifyService {
     localStorage.setItem('access_token', response.access_token);
     localStorage.setItem('refresh_token', response.refresh_token);
     this.router.navigate(['/']);
+    return response
   }
 
   getCodeFromUrl() {

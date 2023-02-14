@@ -1,6 +1,6 @@
 export const environment = {
     production: false,
-    api: 'http://localhost:3000/v1/',
+    api: 'https://stirring-eclair-2d17e8.netlify.app/',
     apiSpotify: 'https://api.spotify.com/v1/',
     secretKey: ''
   };
