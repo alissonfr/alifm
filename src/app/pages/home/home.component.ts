@@ -10,7 +10,7 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 export class HomeComponent implements OnInit {
   userData: any = []
   type: string = 'tracks'
-  timeRange: string = 'long_term'
+  timeRange: string = 'short_term'
   limit: number = 10
   offset: number = 0
 
@@ -50,6 +50,7 @@ export class HomeComponent implements OnInit {
     
     this.spotifyService.getData(data, this.type).subscribe((result: any) => {
         this.tracks = result.items;
+        console.log(this.tracks);
       });
   }
 

@@ -43,7 +43,10 @@
             </div>
             <div class="data-title">
                 <p>{{track.name}}</p>
-                <a target="_blank" [href]="track.external_urls.spotify">Abrir no Spotify</a>
+                <span *ngFor="let artist of track.artists">{{artist.name}}, </span>
+            </div>
+            <div class="open">
+                <button target="_blank">Abrir no Spotify</button>
             </div>
         </div>
     </section>

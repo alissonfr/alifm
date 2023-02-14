@@ -13,31 +13,26 @@ main {
 .data-tab ul {
     display: flex;
     flex-wrap: wrap;
-    padding-left: 0;
-    margin-bottom: 0;
     list-style: none;
+    padding: 25px 0;
+    background-color: #FFF;
+    border-radius: 22px;
+    margin: 25px 0px;
 }
 
 .data-tab ul li {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #E9B9F2;
     width: 33%;
     text-align: center;
-
     padding: 0.5rem 0;
-    margin-bottom: -1px;
-    border: 1px solid transparent;
-    
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-    background-color: #FCFCFC;
-    border-bottom: 1px solid #dee2e6;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px
 }
 
 .data-tab ul li.selected {
-    color: #495057;
-    background-color: #FCFCFC;
-    border-color: #dee2e6 #dee2e6 #FCFCFC;
+    color: #773795;
+    font-weight: 600;
+    /* background-color: #FCFCFC; */
 }
 
 /* ============================ */
@@ -56,33 +51,60 @@ main {
     margin-top: 0;
 }
 
-.data-row .data-pic {
-    width: 20%;
+/* first row */
 
+.data-row .data-pic {
+    width: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 15px;
 }
 
-.data-row .data-title {
-    width: 80%;
+/* second row */
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.data-row .data-title {
+    width: 50%;
 }
 
-.data-row .data-title a {
+.data-row .data-title p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #0E1133;
+}
+
+.data-row .data-title span {
+    font-size: 14px;
+    font-weight: 500;
+    color: #505056;
+}
+
+/* third row */
+
+.data-row .open {
+    width: 25%;
+    text-align: end;
+}
+
+.data-row .open button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
     border: 1px solid #773795;
     border-radius: 15px;
-    color: #773795;
     background-color: #FCFCFC;
-    padding: 5px 10px;
+    color: #773795;
+    padding: 5px 25px;
     text-decoration: none;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 12px;
     text-align: center;
+    transition: all .2s;
+}
+
+.data-row .open button:hover {
+    background-color: #773795;
+    color: #FCFCFC;
 }
 
 .data-row img {
@@ -137,7 +159,7 @@ header h1 {
     font-weight: 400;
     font-size: 14px;
     cursor: pointer;
-    margin: 0 5px;
+    margin: 0 10px;
 }
 
 .col button {
