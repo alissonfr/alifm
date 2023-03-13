@@ -30,7 +30,7 @@ export class SpotifyService {
   async login() {
     const clientId = '0a0be73ac35b43b0ac1eb0688fd80450';
     const redirectUri = encodeURIComponent(this.api);
-    const scope = encodeURIComponent('user-top-read');
+    const scope = encodeURIComponent('user-top-read, user-read-recently-played, user-read-currently-playing');
     const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code`;
   
     window.location.href = url;
@@ -68,7 +68,7 @@ export class SpotifyService {
     return match ? match[1] : null;
   }
 
-  getData(data: any, type: string): Observable<any> {
+  getTopItems(data: any, type: string): Observable<any> {
     const httpOptions: any = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -77,5 +77,16 @@ export class SpotifyService {
       params: data
     }
     return this.http.get(this.apiUrl + `me/top/${type}`, httpOptions)
+  }
+
+  getRecentlyPlayed(data: any): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.getToken()}`
+      }),
+      params: data
+    }
+    return this.http.get(this.apiUrl + `me/player/recently-played`, httpOptions)
   }
 }

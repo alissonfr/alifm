@@ -1,31 +1,6 @@
-<app-header></app-header>
-
-<header>
-    <div class="col">
-        <h1>LOGO</h1>
-        <ul *ngIf="isLogged">
-            <li (click)="changeDataType('tracks')">Top Tracks</li>
-            <li (click)="changeDataType('artists')">Top Artists</li>
-            <li (click)="changeDataType('genres')">Top Genres</li>
-            <li (click)="changeDataType('recently')">Recently played</li>
-        </ul>
-    </div>
-    <div class="col" *ngIf="!isLogged">
-        <button (click)="login()">Login</button>
-    </div>
-    <div class="col" *ngIf="isLogged">
-        <p>Alisson</p>
-        <img src="" alt="foto">
-    </div>
-</header>
-
-
-
-
+<app-header [isLogged]="isLogged" [changeDataType]="changeDataType"></app-header>
 
 <main *ngIf="isLogged">
-    
-    
     <div class="data-tab">
         <ul>
             <li (click)="changeTimeRange(1)" [ngClass]="tab === 1 ? 'selected' : ''">Último mês</li>
