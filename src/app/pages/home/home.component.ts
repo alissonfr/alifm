@@ -24,18 +24,10 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private spotifyService: SpotifyService,
-    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe((params: any) => {
-      if(params.code) {
-        this.spotifyService.handleCallback().then(data => {
-          this.getTopItems();
-          this.isLogged = true;
-        });
-      };
-    });
+
   }
 
 
@@ -51,6 +43,8 @@ export class HomeComponent implements OnInit {
       this.loading = false;
       this.showTracks = true;
       this.tracks = result.items;
+      console.log(this.tracks);
+      console.log(this.showTracks);
     });
   }
   
@@ -71,6 +65,7 @@ export class HomeComponent implements OnInit {
   }
 
   changeDataType($event: any) {
+    console.log('eventooooooooooooooooo ', $event)
     this.type = $event;
     if (this.type === 'recently') {
       this.getRecentlyPlayed();
@@ -101,5 +96,10 @@ export class HomeComponent implements OnInit {
   changeLimit() {
     this.limit = this.limit + 10;
     this.getTopItems();
+  }
+
+  isLoggedFeedback($event: any) {
+    this.isLogged = $event
+    console.log($event)
   }
 }

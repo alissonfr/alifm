@@ -1,14 +1,14 @@
 <header>
     <div class="col">
         <h1>LOGO</h1>
-        <ul *ngIf="isLogged">
+        <ul *ngIf="isLoggedParent">
             <li (click)="changeData('tracks')">Top Tracks</li>
             <li (click)="changeData('artists')">Top Artists</li>
             <li style="color: #d3d3d3">Top Genres</li>
             <li (click)="changeData('recently')">Recently played</li>
         </ul>
     </div>
-    <div class="col" *ngIf="!isLogged">
+    <div class="col" *ngIf="!isLoggedParent">
         <button (click)="login()">Login</button>
     </div>
     <div class="col" *ngIf="isLogged">

@@ -51,3 +51,7 @@ header h1 {
     color: #773795;
     cursor: pointer;
 }
+.col img {
+    width: 50px;
+    margin-left: 25px;
+}
