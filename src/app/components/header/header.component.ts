@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
@@ -6,20 +6,25 @@ import { SpotifyService } from 'src/app/services/spotify.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @Input() isLogged: boolean = false;
-  @Input() changeDataType: any;
+  @Input() limit: number = 10;
+
+  @Output() changeDataTypeParent = new EventEmitter();
 
   constructor(
     private spotifyService: SpotifyService,
   ) {}
 
   ngOnInit() {
-
   }
 
   changeData(type: string) {
-    this.changeDataType(type);
+    this.changeDataTypeParent.emit(type);
+  }
+
+  emitToParent(type: string) {
+
   }
 
   async login() {

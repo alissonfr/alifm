@@ -15,7 +15,9 @@ export class HomeComponent implements OnInit {
   offset: number = 0
 
   tracks: any = [];
+  recentlyPlayed: any = [];
   isLogged = false;
+  showTracks = false;
 
   tab: number = 1;
 
@@ -48,6 +50,9 @@ export class HomeComponent implements OnInit {
         this.tracks = result.items;
         console.log(this.tracks);
       });
+      this.showTracks = true;
+      this.tracks = result.items;
+    });
   }
 
   getRecentlyPlayed() {
@@ -63,9 +68,9 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  changeDataType(type: string) {
-    this.type = type;
-    if (type === 'recently') {
+  changeDataType($event: any) {
+    this.type = $event;
+    if (this.type === 'recently') {
       this.getRecentlyPlayed();
     } else {
       this.getTopItems();
