@@ -1,20 +1,38 @@
-<app-header [isLogged]="isLogged" [changeDataType]="changeDataType"></app-header>
+<app-header 
+    [isLogged]="isLogged" 
+    [limit]="limit" 
+    (changeDataTypeParent)="changeDataType($event)"
+    >
+</app-header>
 
 <main *ngIf="isLogged">
-    <div class="data-tab">
-        <ul>
+    <div class="data-tab" *ngIf="showTracks">
+        <ul *ngIf="!loading">
             <li (click)="changeTimeRange(1)" [ngClass]="tab === 1 ? 'selected' : ''">Último mês</li>
             <li (click)="changeTimeRange(2)" [ngClass]="tab === 2 ? 'selected' : ''">Últimos 6 meses</li>
             <li (click)="changeTimeRange(3)" [ngClass]="tab === 3 ? 'selected' : ''">Último ano</li>
         </ul>
+        <ul *ngIf="loading" class="skeleton-ul">
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
     </div>
 
-    <section class="data">
+    <div *ngIf="loading">
+        <ng-container *ngTemplateOutlet="skeleton"></ng-container>
+        <ng-container *ngTemplateOutlet="skeleton"></ng-container>
+        <ng-container *ngTemplateOutlet="skeleton"></ng-container>    
+        <ng-container *ngTemplateOutlet="skeleton"></ng-container>
+        <ng-container *ngTemplateOutlet="skeleton"></ng-container>
+    </div>
+
+    <section class="data" *ngIf="showTracks && !loading">
         <div class="data-row" *ngFor="let track of tracks; let i = index">
             <div class="data-pic">
                 <img *ngIf="type == 'tracks'" [src]="track.album.images[1].url" [alt]="track.name">
                 <img *ngIf="type == 'artists'" [src]="track.images[1].url" [alt]="track.name">
-                <p>{{i+1}}</p>
+                <p>#{{i+1}}</p>
             </div>
             <div class="data-title">
                 <p>{{track.name}}</p>
@@ -40,6 +58,24 @@
         </div>
     </section>
     <div class="more">
-        <button (click)="changeLimit()" *ngIf="limit < 50">Show more</button>
+        <button [disabled]="loading" (click)="changeLimit()" *ngIf="limit < 50 && !loading">Show more</button>
     </div>
 </main>
+
+<!-- SKELETON NG TEMPLATE -->
+<ng-template #skeleton>
+    <section class="data skeleton">
+        <div class="data-row">
+            <div class="data-pic">
+                <div class="img"></div>
+            </div>
+            <div class="data-title">
+                <div></div>
+                <span></span>
+            </div>
+            <div class="open">
+                <div></div>
+            </div>
+        </div>
+    </section>
+  </ng-template>

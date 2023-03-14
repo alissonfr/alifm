@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   recentlyPlayed: any = [];
   isLogged = false;
   showTracks = false;
+  loading = false;
 
   tab: number = 1;
 
@@ -38,8 +39,8 @@ export class HomeComponent implements OnInit {
   }
 
 
-
   getTopItems() {
+    this.loading = true;
     var data: any = {
       time_range: this.timeRange,
       limit: this.limit,
@@ -47,24 +48,25 @@ export class HomeComponent implements OnInit {
     };
     
     this.spotifyService.getTopItems(data, this.type).subscribe((result: any) => {
-        this.tracks = result.items;
-        console.log(this.tracks);
-      });
+      this.loading = false;
       this.showTracks = true;
       this.tracks = result.items;
     });
   }
-
+  
   getRecentlyPlayed() {
+    this.loading = true;
     var data: any = {
-      time_range: this.timeRange,
       limit: this.limit,
       offset: this.offset,
     };
     
     this.spotifyService.getRecentlyPlayed(data).subscribe((result: any) => {
-        this.tracks = result.items;
-        console.log(this.tracks);
+        this.loading = false;
+        this.showTracks = false;
+        this.recentlyPlayed = result.items;
+        console.log(this.recentlyPlayed);
+        console.log(this.showTracks);
       });
   }
 
