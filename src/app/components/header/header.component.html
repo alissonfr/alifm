@@ -11,8 +11,8 @@
     <div class="col" *ngIf="!isLoggedParent">
         <button (click)="login()">Login</button>
     </div>
-    <div class="col" *ngIf="isLogged">
-        <p>Alisson</p>
-        <img src="" alt="foto">
+    <div class="col" *ngIf="isLoggedParent">
+        <p>{{user.display_name}}</p>
+        <img [src]="user.images[0].url" alt="foto">
     </div>
 </header>

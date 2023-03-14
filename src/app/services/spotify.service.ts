@@ -89,4 +89,15 @@ export class SpotifyService {
     }
     return this.http.get(this.apiUrl + `me/player/recently-played`, httpOptions)
   }
+
+  getUser(data: any): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.getToken()}`
+      }),
+      params: data
+    }
+    return this.http.get(this.apiUrl + `me/`, httpOptions)
+  }
 }

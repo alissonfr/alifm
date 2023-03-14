@@ -9,7 +9,8 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 })
 export class HeaderComponent implements OnInit {
   @Input() limit: number = 10;
-
+  user: any = {};
+  
   @Output() changeDataTypeParent = new EventEmitter();
   @Output() isLoggedParent = new EventEmitter();
 
@@ -29,8 +30,20 @@ export class HeaderComponent implements OnInit {
         });
       };
     });
+    this.getUser()
   }
 
+  getUser() {
+    var data: any = {
+    };
+    
+    this.spotifyService.getUser(data).subscribe((result: any) => {
+      this.user = result
+      if (this.user) {
+
+      }
+      console.log(result)
+    });
   }
 
   changeData(type: string) {
